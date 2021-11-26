@@ -1,1 +1,1 @@
-##How to use the Wine-o-Meter?
+# How to use the Wine-o-Meter?
