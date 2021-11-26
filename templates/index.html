@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <h1>API Documentation</h1>
+  <p>
+    Welcome to the API documentation for our salary prediction AP-AI.
+  </p>
+  <p>
+    What is AP-AI? It's a new beautiful AI model wrap into an API to help you
+    to build the best products.
+  </p>
+  <div>
+    <h2>Endpoints</h2>
+    <blockquote>
+      POST /prediction
+    </blockquote>
+    <div>
+      <p>
+        This endpoint allows you to make a prediction of the salary amount (in dollars) according to the year.
+      </p>
+      <h3>
+        How to request this endpoint?
+      </h3>
+      <p>
+        You should request this endpoint using a POST method with a JSON content. Your JSON should contain at least "year" key with associated value (float).
+      </p>
+      <p>
+        Example: <code>curl -i -H "Content-Type: application/json" -X POST -d '{"year": 4}' http://localhost:5000/predict</code>
+      </p>
+      <p>
+        It returns a JSON like so:
+        <pre>
+          <code>
+  {
+    "prediction": "62962.191754786785"
+  }
+          </code>
+        </pre>
+      </p>
+      <p>
+        You can add <code>rounded</code> key with string value <code>True</code> in order to round the result:
+      </p>
+      <pre>
+        <code>
+  $ curl -i -H "Content-Type: application/json" -X POST -d '{"year": 4, "rounded": "True"}' http://localhost:5000/predict
+  {
+    "prediction": "62962.0"
+  }
+        </code>
+      </pre>
+      <h3>
+        Errors
+      </h3>
+      <p>
+        Our API will return an error with format:
+        <pre>
+          <code>
+  {
+    "code": <i>HTTP status code</i>,
+    "name": <i>name of this error</i>,
+    "description": <i>a short description</i>
+  }
+          </code>
+        </pre>
+      </p>
+      <p>
+        Identified errors:
+        <ul>
+          <li>Missing JSON</li>
+          <li>Missing key "year"</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
