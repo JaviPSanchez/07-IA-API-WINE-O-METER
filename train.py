@@ -2,6 +2,8 @@ print('Importing libraries...')
 import joblib
 import os
 import pandas as pd
+import sklearn
+print (sklearn.__version__)
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
@@ -22,25 +24,20 @@ y = df["quality"]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-model = Pipeline(steps=[("imputer", SimpleImputer(strategy="mean")),
+classifier = Pipeline(steps=[("imputer", SimpleImputer(strategy="mean")),
                         ("scaler", StandardScaler()),
                         ("classifier", RandomForestClassifier())])
 
-model.fit(X_train, y_train)
+classifier.fit(X_train, y_train)
 
-print("Accuracy: {:.2f}".format(model.score(X_test, y_test)))
+print("Accuracy: {:.2f}".format(classifier.score(X_test, y_test)))
 
-# Create the folder "models" if not exists
-if not os.path.exists("models"):
-    os.makedirs("models")
+# Create the folder "classifiers" if not exists
+if not os.path.exists("classifiers"):
+    os.makedirs("classifiers")
 
-
-filename = "model.joblib"
+filename = "classifier.joblib"
 PATH = ('D:/00_PROYECTOS_PERSONALES/DATA SCIENCE/01 - JEDHA FULL-STACK/00-Projects/05 - Bloc n°5 Industrialisation d un algorithme d apprentissage automatique et automatisation des processus de décision/ML in Production/models')
 
-
-
-if filename in os.listdir(PATH):
-    pass
-else:
-    joblib.dump(model, "models/model.joblib")
+if not filename in os.listdir(PATH):
+    joblib.dump(classifier, "models/classifier.joblib")
