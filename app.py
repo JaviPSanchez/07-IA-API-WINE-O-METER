@@ -1,11 +1,17 @@
+print('Importing libraries...')
 import joblib
 from flask import Flask, request, json, jsonify, render_template
 from werkzeug.exceptions import HTTPException
-
+print('Done!')
+print()
+print('Loading model...')
 MODEL_PATH = 'models/model.joblib'
-
+print('Done!')
+print()
+print('Loading app...')
 app = Flask(__name__)
-
+print('Done!')
+print()
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):
@@ -37,8 +43,10 @@ class MissingJSON(HTTPException):
     name = "Missing JSON"
     description = "Missing JSON."
 
+
+
 #Return a prediction with our classification model.
-def make_prediction(input: float):
+def make_prediction(input):
     # Load model
     classifier = joblib.load(MODEL_PATH)
     # Make prediction (the model expects a 2D array that is why we put input in a list of list) and return it
@@ -52,7 +60,7 @@ def predict():
     if request.json:
         # Get JSON as dictionnary
         json_input = request.get_json()
-        print(json_input)
+       
         if "input" not in json_input:
             # If 'input' is not in our JSON we raise our own error
             raise MissingKeyError()
@@ -67,6 +75,7 @@ def predict():
         }
         return jsonify(response), 200
     raise MissingJSON()
+
 
 
 
