@@ -25,29 +25,20 @@
         You should request this endpoint using a POST method with a JSON content. Your JSON should contain at least "year" key with associated value (float).
       </p>
       <p>
-        Example: <code>curl -i -H "Content-Type: application/json" -X POST -d '{"year": 4}' http://localhost:5000/predict</code>
+        Example: <code>curl -i -H "Content-Type: application/json" -X POST -d '{
+          "input": [[7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8]]
+      }' http://127.0.0.1:5000/predict</code>
       </p>
       <p>
         It returns a JSON like so:
         <pre>
           <code>
   {
-    "prediction": "62962.191754786785"
+    "quality": "6"
   }
           </code>
         </pre>
       </p>
-      <p>
-        You can add <code>rounded</code> key with string value <code>True</code> in order to round the result:
-      </p>
-      <pre>
-        <code>
-  $ curl -i -H "Content-Type: application/json" -X POST -d '{"year": 4, "rounded": "True"}' http://localhost:5000/predict
-  {
-    "prediction": "62962.0"
-  }
-        </code>
-      </pre>
       <h3>
         Errors
       </h3>
