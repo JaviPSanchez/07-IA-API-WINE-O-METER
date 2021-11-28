@@ -7,7 +7,6 @@
 }
 
 html {
-  /* rem = root element = html --> 1rem = 16px; 10px/16px = 0.625 = 62.5% */
   font-size: 62.5%;
 }
 
@@ -16,17 +15,22 @@ body {
   font-size: 2rem;
   text-align: center;
   line-height: 1.7;
-
   padding: 3rem;
   box-sizing: border-box;
-
   background-color: #fff;
 }
 
 h1 {
   font-size: 6rem;
   text-transform: uppercase;
-  padding-bottom: 2rem;
+  background-color: hsla(0, 0%, 100%, 0.8);
+  color: #000;
+  border-radius: 2rem;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.2);
+  width: 60%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 2rem;
 }
 
 h2,
@@ -40,18 +44,79 @@ li {
 }
 
 .container {
-  max-width: 120rem;
+  max-width: 150rem;
   background-color: #55c57a;
   background-image: linear-gradient(
       to right bottom,
-      rgba(126, 213, 111, 0.85),
-      rgba(40, 180, 133, 0.85)
+      rgba(126, 213, 111, 0.6),
+      rgba(40, 180, 133, 0.6)
     ),
-    url(grapes.jpg);
-  background-size: cover;
+    url(wine.jpg);
 
+  background-size: 150rem 180rem;
   padding: 3.2rem;
   margin: 0 auto;
   box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.5);
   color: #fff;
+  border-radius: 1.5rem;
+}
+
+.flex {
+  display: flex;
+  margin-top: 3rem;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.flex_1 {
+  background-color: hsla(0, 0%, 100%, 0.8);
+  color: #000;
+  border-radius: 2rem;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.2);
+  width: 20%;
+}
+.flex_2 {
+  padding: 2rem;
+  width: 80%;
+  border: 2px solid #fff;
+  border-radius: 2rem;
+  margin-left: 2rem;
+}
+
+.exemple {
+  display: inline-block;
+  background-color: hsla(0, 0%, 100%, 0.8);
+  color: #000;
+  border-radius: 2rem;
+  margin: 2rem;
+}
+
+.post {
+  display: inline-block;
+  padding: 1rem;
+  background-color: hsla(0, 0%, 100%, 0.8);
+  color: #000;
+  border-radius: 2rem;
+  margin-bottom: 2rem;
+}
+
+.code {
+  display: inline-block;
+  text-align: center;
+  margin-top: 2rem;
+}
+.centre {
+  margin-top: 2rem;
+  display: block;
+  text-align: center;
+}
+
+.format {
+  display: inline-block;
+  text-align: center;
+  background-color: hsla(0, 0%, 100%, 0.8);
+  color: #000;
+  border-radius: 2rem;
+  margin: 2rem;
 }

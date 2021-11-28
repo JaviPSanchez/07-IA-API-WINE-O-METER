@@ -5,7 +5,7 @@ from werkzeug.exceptions import HTTPException
 print('Done!')
 print()
 print('Loading model...')
-MODEL_PATH = 'models/model.joblib'
+MODEL_PATH = 'models/classifier.joblib'
 print('Done!')
 print()
 print('Loading server app...')
@@ -15,7 +15,8 @@ print()
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):
-    """Return JSON instead of HTML for HTTP errors (which is the basic error
+    """
+    Return JSON instead of HTML for HTTP errors (which is the basic error
     response with Flask).
     """
     # Start with the correct headers and status code from the error
@@ -41,31 +42,55 @@ class MissingJSON(HTTPException):
     name = "Missing JSON"
     description = "Missing JSON."
 
-def make_prediction(input: float):
+def make_prediction(value: float):
     # Load model
     classifier = joblib.load(MODEL_PATH)
+    print("1")
+    print(classifier)
     # Make prediction (the model expects a 2D array that is why we put input in a list of list) and return it
-    prediction = classifier.predict([[input]])
-    return prediction[0]
+    prediction = classifier.predict(value)
+    print("2")
+    print(prediction)
+    return prediction
 
 
-@app.route("/predict", methods=["GET"])
+@app.route("/predict", methods=["POST", "GET"])
 def predict():
-    # Check parameters
     if request.json:
-        # Get JSON as dictionnary
-        json_input = request.get_json()
+        json_input = request.json
+        print("3")
+        print(json_input) # {'input': [[9.8, 0.36, 0.46, 10.5, 'NaN', 4.0, 83.0, 0.9956, 2.89, 0.3, 10.1]]}
         if "input" not in json_input:
             raise MissingKeyError()
-        prediction = make_prediction(float(json_input["input"]))
+        prediction = make_prediction(json_input["input"])
+        print("4")
+        print(prediction)
+        # Pipeline(steps=[('imputer', SimpleImputer()), ('scaler', StandardScaler()),
+        #             ('classifier', RandomForestClassifier())])
+        # C:\Users\javie\AppData\Roaming\Python\Python39\site-packages\sklearn\base.py:445: UserWarning: X does not have valid feature names, but SimpleImputer was fitted with feature names
+        # warnings.warn(
+        # [4]
         response = {
             "quality": str(prediction),
         }
+        print("5")
+        print(response) #{'quality': '[4]'}
         return jsonify(response), 200
     raise MissingJSON()
 
 
-    
+    # if request.json:
+    #     # Get JSON as dictionnary
+    #     json_input = request.get_json()
+    #     if "input" not in json_input:
+    #         raise MissingKeyError()
+    #     prediction = make_prediction((json_input["input"]))
+    #     response = {
+    #         "quality": str(prediction),
+    #     }
+    #     return jsonify(response), 200
+    # raise MissingJSON()
+
 
 @app.route("/")
 def index():
